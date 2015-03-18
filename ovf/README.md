@@ -18,8 +18,9 @@ FEniCS is courses.
 ### Getting the image
 
 The OVF image can be downloaded from
-<http://fenicsproject.org/pub/vm/...>. The image can be used with
-numerous virtual environments.
+<http://fenicsproject.org/pub/virtual/fenics-1.5-ubuntu-14.04.ova>. The
+image can be used with various virtual machine managers. VirtualBox is
+recommended.
 
 
 ### Using the image with VirtualBox
