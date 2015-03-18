@@ -1,0 +1,3 @@
+#!/bin/bash
+xterm &
+exec /usr/bin/startfluxbox

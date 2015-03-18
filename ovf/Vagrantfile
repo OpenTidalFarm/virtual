@@ -1,0 +1,75 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Authors:
+# Garth N. Wells <gnw20@cam.ac.uk>
+# Jack S. Hale <jack.hale@uni.lu>
+# Lizao Li <lixx1445@umn.edu>
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+# Check for old and very old versions
+begin
+  Vagrant.require_version ">= 1.4.0"
+rescue NoMethodError => e
+  puts "Your Vagrant version is too old; please upgrade at http://www.vagrantup.com."
+  exit
+end
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # All Vagrant configuration is done here. The most common configuration
+  # options are documented and commented below. For a complete reference,
+  # please see the online documentation at vagrantup.com.
+
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine. In the example below,
+  # accessing "localhost:8080" will access port 80 on the guest machine.
+  # config.vm.network :forwarded_port, guest: 80, host: 8080
+
+  # If true, then any SSH connections made will enable agent forwarding.
+  # Default value: false
+  #config.ssh.forward_agent = true
+
+  # Enable X forwarding
+  config.ssh.forward_x11 = true
+
+  # Share an additional folder to the guest VM. The first argument is
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+  #config.vm.synced_folder "./data", "/home/vagrant/data"
+
+  config.vm.provider "virtualbox" do |vb, override|
+    override.vm.box = "ubuntu/trusty64"
+
+    override.vm.provision "shell",
+      path: "update-apt.sh"
+
+    override.vm.provision "shell",
+    path: "provision-fenics.sh"
+
+    override.vm.provision "file", source: "files/background.png", destination: "/home/vagrant/.fluxbox/backgrounds/background.png"
+    override.vm.provision "file", source: "files/xsession", destination: "/home/vagrant/.xsession"
+
+    override.vm.provision "shell",
+      path: "provision-gui.sh"
+      vb.gui = true
+
+    vb.memory = 1024
+    vb.cpus = 1
+
+    override.vm.provision "shell",
+    path: "provision-utils.sh"
+
+    override.vm.provision "shell",
+    path: "provision-dolfin-examples.sh",
+    privileged: false
+
+    override.vm.provision "shell",
+    path: "cleanup.sh",
+    privileged: true
+
+    #override.sshfs.paths = { "/home/vagrant/" => "home" }
+  end
+end
