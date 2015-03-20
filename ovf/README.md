@@ -5,46 +5,50 @@ running FEniCS inside a virtual machine. The image is targeted at
 users who are trying FEniCS for the first time, and for the use of
 FEniCS is courses.
 
+*The latest OVF image can be always be downloaded from
+<http://fenicsproject.org/pub/virtual/fenics-latest.ova>*
 
 ## Using the FEniCS virtual machine image
 
 ### Requirements
 
 - A 64-bit host operating system (since the image is built on a 64-bit
- system)
-- A virtual machine system that supports Open the Visualization
-  Format, e.g. VirtualBox (<https://www.virtualbox.org/>).
+  system).
+- A virtual machine system that supports the Open Visualization
+  Format (OVF), e.g. VirtualBox (<https://www.virtualbox.org/>).
 
 ### Getting the image
 
-The OVF image can be downloaded from
-<http://fenicsproject.org/pub/virtual/fenics-1.5-ubuntu-14.04.ova>. The
+The latest OVF image can be downloaded from
+<http://fenicsproject.org/pub/virtual/fenics-latest.ova>. The
 image can be used with various virtual machine managers. VirtualBox is
 recommended.
 
-
 ### Using the image with VirtualBox
 
-We recommend the freely available VirtualBox
+We recommend the freely available VirtualBox virtualization product
 (<https://www.virtualbox.org/>).  With VirtualBox, the image can be
 imported via `File -> Import Appliance`.
+
+The username is `vagrant` and the password is `vagrant`.
+
+The virtual machine is behind a NAT firewall and cannot be accessed by
+other users on your public network.
 
 The image has the text editors `emacs`, `gedit` and `vi` installed,
 and the web browser `firefox`.
 
-The below details document how the image is built are intended for
-advanced users and developers.
-
-
 ## Technical details
 
-- Vagrant is used to create and provision the image.
-- The images are built on a minimal Ubuntu 14.04 image.
-- To minimize the size of the image, we use the lightweight Fluxbox
-  window manager.
-- FEniCS is installed from the FEniCS PPA packages
-  (<https://launchpad.net/~fenics-packages<).
+The following details about how the image is built are intended for
+advanced users and developers. Regular users can just download the image
+as discussed above.
 
+- Packer is used to create and provision the image.
+- The images are built from an Ubuntu 14.04 Server ISO directly from Canonical.
+- To minimize the size of the image, we use the lightweight Fluxbox window manager.
+- FEniCS is installed from the FEniCS PPA packages
+  (<https://launchpad.net/~fenics-packages>).
 
 ## Building the image
 
@@ -52,30 +56,29 @@ advanced users and developers.
 
 The following packages are required:
 
-- Vagrant  (<http://www.vagrantup.com/>)
+- Packer  (<http://www.packer.io/>)
 - VirtualBox (<https://www.virtualbox.org/>)
 
 For Debian/Ubuntu:
 
-    sudo apt-get install virtualbox vagrant
+    sudo apt-get install virtualbox
+    
+Packer must be installed from the Packer website (<http://www.packer.io/>).
 
-### Provision the image
+### Provision the FEniCS virtual machine image
 
 To provision the minimal image with FEniCS components, run:
 
-    vagrant up
+    packer build fenics.json
 
-This will download the image and run the provisioning scripts, and
-launch a VirtualBox instance.
+This will automatically generate the image and run the provisioning scripts.
 
-### Exporting the image
+Packer will automatically export the image to the OVA format.
 
-First shutdown the virtual instance. Then export the image via `File
--> Export Appliance`. The naming convention is:
+The output naming convention is:
 
-    fenics-X.Y-ubuntu-XX.YY.ovf
+    output-fenics-X.Y.Z-ubuntu-YYYY-MM-DD/fenics-X.Y.Z-ubuntu-YYYY-MM-DD.ova
 
-where `X.Y` is the FEniCS version and `XX.YY` is the Ubuntu version on
-which the image is based, for example
+where `X.Y.Z` is the FEniCS version and `YYYY-MM-DD` is today's date, for example:
 
-    fenics-1.5-ubuntu-14.04.ovf
+    output-fenics-1.5.0-2015-03-20/fenics-1.5.0-2015-03-20.ova
