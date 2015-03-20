@@ -1,5 +1,7 @@
 # FEniCS with virtual machines and containers
 
+*NOTE: This repository is currently under rapid development, so things may not work as described!*
+
 This repository contains tools for running FEniCS
 (<http://fenicsproject.org>) in virtual machines and Linux containers.
 
