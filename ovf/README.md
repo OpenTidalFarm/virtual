@@ -32,7 +32,7 @@ We recommend the freely available VirtualBox virtualization product
 (<https://www.virtualbox.org/>).  With VirtualBox, the image can be
 imported via `File -> Import Appliance`.
 
-The username is `vagrant` and the password is `vagrant`.
+The username is `fenics` and the password is `fenics`.
 
 The virtual machine is behind a NAT firewall and cannot be accessed by
 other users on your public network.
