@@ -1,0 +1,90 @@
+{
+    "builders": [
+        {
+            "boot_command": [
+                "<esc><wait>",
+                "<esc><wait>",
+                "<enter><wait>",
+                "/install/vmlinuz<wait>",
+                " auto<wait>",
+                " console-setup/ask_detect=false<wait>",
+                " console-setup/layoutcode=us<wait>",
+                " console-setup/modelcode=pc105<wait>",
+                " debconf/frontend=noninteractive<wait>",
+                " debian-installer=en_US<wait>",
+                " fb=false<wait>",
+                " initrd=/install/initrd.gz<wait>",
+                " kbd-chooser/method=us<wait>",
+                " keyboard-configuration/layout=USA<wait>",
+                " keyboard-configuration/variant=USA<wait>",
+                " netcfg/get_hostname=fenics<wait>",
+                " netcfg/get_domain=fenicsproject.org<wait>",
+                " locale=en_US<wait>",
+                " noapic<wait>",
+                " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<wait>",
+                " -- <wait>",
+                "<enter><wait>"
+            ],
+            "format": "ova",
+            "guest_os_type": "Ubuntu_64",
+            "http_directory": "http",
+            "iso_checksum": "3bfa6eac84d527380d0cc52db9092cde127f161e",
+            "iso_checksum_type": "sha1",
+            "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04.2-server-amd64.iso",
+            "name": "fenics-1.5.0-200315",
+            "shutdown_command": "echo 'fenics' | sudo -S shutdown -P now",
+            "ssh_password": "fenics",
+            "ssh_username": "fenics",
+            "ssh_wait_timeout": "20m",
+            "type": "virtualbox-iso",
+            "vboxmanage": [
+                [
+                    "modifyvm",
+                    "{{.Name}}",
+                    "--memory",
+                    "1024"
+                ],
+                [
+                    "modifyvm",
+                    "{{.Name}}",
+                    "--cpus",
+                    "1"
+                ],
+                [
+                    "modifyvm",
+                    "{{.Name}}",
+                    "--vram",
+                    "32"
+                ]
+            ],
+            "vm_name": "fenics-1.5.0-200315"
+        }
+    ],
+    "provisioners": [
+        {
+            "destination": "/home/fenics/.xsession",
+            "source": "files/xsession",
+            "type": "file"
+        },
+        {
+            "destination": "/home/fenics/background.png",
+            "source": "files/background.png",
+            "type": "file"
+        },
+        {
+            "execute_command": "echo 'fenics' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+            "scripts": [
+                "scripts/update-apt.sh",
+                "scripts/fenics.sh",
+                "scripts/gui.sh",
+                "scripts/utils.sh",
+                "scripts/cleanup.sh"
+            ],
+            "type": "shell"
+        },
+        {
+            "script": "scripts/dolfin-examples.sh",
+            "type": "shell"
+        }
+    ]
+}
