@@ -24,6 +24,8 @@ The latest OVF image can be downloaded from
 image can be used with various virtual machine managers. VirtualBox is
 recommended.
 
+You can look at old images by browsing the page at <http://fenicsproject.org/pub/virtual>.
+
 ### Using the image with VirtualBox
 
 We recommend the freely available VirtualBox virtualization product
