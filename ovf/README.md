@@ -2,10 +2,10 @@
 
 These scripts create an Open Visualization Format (OVF) image for
 running FEniCS inside a virtual machine. The image is targeted at
-users who are trying FEniCS for the first time, and for the use of
-FEniCS is courses.
+users who are trying FEniCS for the first time, and for FEniCS-based
+educational courses.
 
-*The latest OVF image can be always be downloaded from
+*We maintain an up-to-date OVF image that can be always be downloaded from
 <http://fenicsproject.org/pub/virtual/fenics-latest.ova>*
 
 ## Using the FEniCS virtual machine image
@@ -73,7 +73,7 @@ To provision the minimal image with FEniCS components, run:
 
 This will automatically generate the image and run the provisioning scripts.
 
-Packer will automatically export the image to the OVA format.
+Packer will then export the image to the OVA format.
 
 The output naming convention is:
 
