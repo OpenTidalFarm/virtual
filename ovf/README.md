@@ -1,86 +1,91 @@
 # Open Visualization Format images for FEniCS
 
 These scripts create an Open Visualization Format (OVF) image for
-running FEniCS inside a virtual machine. The image is targeted at
-users who are trying FEniCS for the first time, and for FEniCS-based
-educational courses.
+running FEniCS inside a virtual machine. Recent images are available
+at <http://fenicsproject.org/pub/virtual/>.
 
-*We maintain an up-to-date OVF image that can be always be downloaded from
-<http://fenicsproject.org/pub/virtual/fenics-latest.ova>*
 
-## Using the FEniCS virtual machine image
+## The FEniCS virtual machine image
 
-### Requirements
+The FEniCS virtual machine image is built on a recent Ubuntu release,
+with the Fluxbox window manager. We use Fluxbox to minimise the size
+of the image.
 
-- A 64-bit host operating system (since the image is built on a 64-bit
-  system).
-- A virtual machine system that supports the Open Visualization
-  Format (OVF), e.g. VirtualBox (<https://www.virtualbox.org/>).
+The image is built using Packer (<https://packer.io/>). Packer
+downloads the Ubuntu ISO, builds a virtual machine, provisions the
+machine to the FEniCS libraries and creates an OVF image.
 
-### Getting the image
 
-The latest OVF image can be downloaded from
-<http://fenicsproject.org/pub/virtual/fenics-latest.ova>. The
-image can be used with various virtual machine managers. VirtualBox is
-recommended.
-
-You can look at old images by browsing the page at <http://fenicsproject.org/pub/virtual>.
-
-### Using the image with VirtualBox
-
-We recommend the freely available VirtualBox virtualization product
-(<https://www.virtualbox.org/>).  With VirtualBox, the image can be
-imported via `File -> Import Appliance`.
-
-The username is `fenics` and the password is `fenics`.
-
-The virtual machine is behind a NAT firewall and cannot be accessed by
-other users on your public network.
-
-The image has the text editors `emacs`, `gedit` and `vi` installed,
-and the web browser `firefox`.
-
-## Technical details
-
-The following details about how the image is built are intended for
-advanced users and developers. Regular users can just download the image
-as discussed above.
-
-- Packer is used to create and provision the image.
-- The images are built from an Ubuntu 14.04 Server ISO directly from Canonical.
-- To minimize the size of the image, we use the lightweight Fluxbox window manager.
-- FEniCS is installed from the FEniCS PPA packages
-  (<https://launchpad.net/~fenics-packages>).
-
-## Building the image
+## Building a FEniCS virtual machine image
 
 ### Requirements
 
-The following packages are required:
+- Packer (<https://packer.io/>)
+- VirtualBox (https://www.virtualbox.org/)
 
-- Packer  (<http://www.packer.io/>)
-- VirtualBox (<https://www.virtualbox.org/>)
+VirtualBox is available as a Debian/Ubuntu package (`sudo apt-get
+install virtualbox`). Packer binaries are available from
+<https://packer.io/>.
 
-For Debian/Ubuntu:
 
-    sudo apt-get install virtualbox
-    
-Packer must be installed from the Packer website (<http://www.packer.io/>).
+### Building the image
 
-### Provision the FEniCS virtual machine image
+The image is built by the command
 
-To provision the minimal image with FEniCS components, run:
+    packer builder fenics.json
 
-    packer build fenics.json
+It may take around 20 minutes to build the image.
 
-This will automatically generate the image and run the provisioning scripts.
-
-Packer will then export the image to the OVA format.
-
-The output naming convention is:
+The created image will be found at
 
     output-fenics-X.Y.Z-ubuntu-YYYY-MM-DD/fenics-X.Y.Z-ubuntu-YYYY-MM-DD.ova
 
 where `X.Y.Z` is the FEniCS version and `YYYY-MM-DD` is today's date, for example:
 
     output-fenics-1.5.0-2015-03-20/fenics-1.5.0-2015-03-20.ova
+
+
+### Copying the image to the FEniCS server
+
+**TODO**
+
+This step requires write access the the FEniCS server.
+
+
+
+## Technical details
+
+The following details about how the image is built are intended for
+advanced users and developers. Regular users can just download the
+image as discussed above.
+
+- Packer is used to create and provision the image.
+- The images are built from an Ubuntu 14.04 Server ISO directly from Canonical.
+- To minimize the size of the image, we use the lightweight Fluxbox
+  window manager.
+- FEniCS is installed from the FEniCS PPA packages
+  (<https://launchpad.net/~fenics-packages>).
+
+
+### FEniCS versions
+
+FEniCS is installed from the FEniCS PPA
+(<https://launchpad.net/~fenics-packages>).
+
+
+### User name and password
+
+The user name and password for the virtual machine are both 'fenics'.
+
+
+### Provisioning
+
+The image is provisioned by the Bash scripts in `scripts/'. They are
+called in the order:
+
+1. `update-apt.sh`       (run `apt-get update`)
+1. `fenics.sh`           (add the FEniCS PPA and install `fenics` package)
+1. `gui.sh`              (add GUI packages)
+1. `utils.sh`            (add miscellaneous useful packages)
+1. `cleanup.sh`          (clean `apt` cache and temp files)
+1. `dolfin-examples.sh`  (copy DOLFIN examples into user directory)
