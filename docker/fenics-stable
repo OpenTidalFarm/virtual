@@ -44,14 +44,14 @@ start_gui () {
 	    exit 1
 	fi 
     else
-        DISPLAY_ENV=${DISPLAY}
+        DISPLAY_ENV=$DISPLAY
     fi
         
     # Start xhost sharing
     xhost +local: >/dev/null 2>&1
     # Run docker
     docker run -i -t --rm \
-           -e DISPLAY=${DISPLAY_ENV}:0 \
+           -e DISPLAY=$DISPLAY_ENV:0 \
            -u fenics \
            -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
            -v $SHAREDDIR:/home/fenics/ \
