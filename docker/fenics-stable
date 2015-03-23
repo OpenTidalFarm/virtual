@@ -10,7 +10,7 @@ trap 'exit' ERR
 
 # Test if docker is installed
 if ! hash docker 2>/dev/null; then
-    echo >&2 "Command 'docker' cannot be found in your system. "
+    echo >&2 "Command 'docker' cannot be found on your system. "
     echo >&2 "Instructions for installing docker on most platforms can be found at:"
     echo >&2 "          https://docs.docker.com/"
     echo >&2 "Aborting."
@@ -23,11 +23,35 @@ if [[ ! -d $SHAREDDIR ]]; then
 fi
 
 start_gui () {
+    # If we are on Mac OS X and using boot2docker we
+    # need to use the following workaround from
+    # https://github.com/docker/docker/issues/8710
+    # to get X11 forwarding to work.
+    if [ "$(uname)" == "Darwin" ]; then
+	if hash socat 2> /dev/null ; then
+	    # I delibrately haven't sunk the output of socat until we understand more about this.
+            socat TCP-LISTEN:6000,reuseaddr,fork UNIX-CLIENT:\"$DISPLAY\"
+	    DISPLAY_ENV=$(boot2docker config | grep HostIP | awk -F \" '{print $2}')
+	    echo >&2 "Warning: X11 forwarding on Mac OS X is considered experimental!"
+	    echo >&2 "If you have problems run without X11 by passing the -c option."
+        else
+	    echo >&2 "Command 'socat' cannot be found on your system."
+	    echo >&2 "socat is required for X11 forwarding to work on Mac OS X."
+	    echo >&2 "Homebrew users can install socat by running:"
+	    echo >&2 "        brew install socat"
+	    echo >&2 "You can run this script without X11 by passing the -c option."
+	    echo >&2 "Aborting."
+	    exit 1
+	fi 
+    else
+        DISPLAY_ENV=${DISPLAY}
+    fi
+        
     # Start xhost sharing
     xhost +local: >/dev/null 2>&1
     # Run docker
     docker run -i -t --rm \
-           -e DISPLAY=$DISPLAY \
+           -e DISPLAY=${DISPLAY_ENV}:0 \
            -u fenics \
            -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
            -v $SHAREDDIR:/home/fenics/ \
