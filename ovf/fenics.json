@@ -26,6 +26,7 @@
                 "<enter><wait>"
             ],
             "format": "ova",
+            "guest_additions_mode": "disable",
             "guest_os_type": "Ubuntu_64",
             "http_directory": "http",
             "iso_checksum": "3bfa6eac84d527380d0cc52db9092cde127f161e",
