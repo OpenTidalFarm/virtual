@@ -69,7 +69,7 @@
             "type": "file"
         },
         {
-            "destination": "/home/fenics/background.png",
+            "destination": "/home/fenics/.background.png",
             "source": "files/background.png",
             "type": "file"
         },
