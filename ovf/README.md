@@ -32,7 +32,7 @@ install virtualbox`). Packer binaries are available from
 
 The image is built by the command
 
-    packer builder fenics.json
+    packer -machine-readable build fenics.json | tee packer-output.txt
 
 It may take around 20 minutes to build the image.
 
@@ -47,11 +47,18 @@ where `X.Y.Z` is the FEniCS version and `YYYY-MM-DD` is today's date, for exampl
 
 ### Copying the image to the FEniCS server
 
-**TODO**
-
 This step requires write access the the FEniCS server.
 
+The script `push-to-website.sh` will automatically copy 
+the OVA image to fenicsproject.org and create a symlink
+from `pub/virtual/fenics-latest.ova` to the uploaded file.
 
+Example of usage:
+
+    ./push-to-website.sh packer-output.txt
+    
+where `packer-output.txt` is the output file created by packer
+called with the `-machine-readable` option enabled.
 
 ## Technical details
 
