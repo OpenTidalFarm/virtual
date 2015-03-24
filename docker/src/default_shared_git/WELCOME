@@ -2,7 +2,7 @@ Welcome to FEniCS-git.
 
 To try a demo, execute:
 
-   python demo_poisson.py
+   python demos/documented/poisson/python/demo_poisson.py
 
 To leave, execute:
 
