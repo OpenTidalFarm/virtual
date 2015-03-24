@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
-# Options
-IMAGE=lzlarryli/stable-ppa
-NAME=fenics
-SHAREDDIR=$PWD/shared
+# User settings
+VERSION=stable                  # Valid choices are: stable, dev, git
+NAME=fenics                     # Name inside docker. Can be anything.
+SHAREDDIR=$PWD/shared           # Location of the defaul shared directory
+IMAGE=fenicsproject/$VERSION    # Name of the docker image to use
+
+#-------------------------------------------------------------------------#
 
 # Tell script to exit on first error
 trap 'exit' ERR
@@ -19,7 +22,7 @@ fi
 
 # Prepare the shared folder for the first run
 if [[ ! -d $SHAREDDIR ]]; then
-    cp -a ./src/default_shared $SHAREDDIR
+    cp -a ./src/default_shared_$VERSION $SHAREDDIR
 fi
 
 start_gui () {
@@ -48,7 +51,7 @@ start_gui () {
     fi
         
     # Start xhost sharing
-    xhost +local: >/dev/null 2>&1
+    xhost +local: > /dev/null 2>&1
     # Run docker
     docker run -i -t --rm \
            -e DISPLAY=$DISPLAY_ENV:0 \
