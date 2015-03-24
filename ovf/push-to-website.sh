@@ -44,7 +44,7 @@ artifact_file=${artifact##*/}
 
 cecho $GOOD "Found artifact at $artifact"
 
-echo "Uploading artifact to http://fenicsproject.org/pub/virtual/..."
+echo "Uploading artifact to http://fenicsproject.org/pub/virtual/$artifact_file ..."
 if [ `scp $artifact fenic-web@fenicsproject.org:pub/virtual/` ]; then
     cecho $GOOD "Successfully uploaded artifact."
 else
@@ -52,7 +52,7 @@ else
     exit 1
 fi
 
-echo "Creating symlink from pub/virtual/fenics-latest.ova to pub/virtual/$artifact_file..."
+echo "Creating symlink from pub/virtual/fenics-latest.ova to pub/virtual/$artifact_file ..."
 if [ `ssh fenics-web@fenicsproject.org "cd pub/virtual/; ln -sf $artifact_file fenics-latest.ova"` ]; then
     cecho $GOOD "Created symlink."
 else
