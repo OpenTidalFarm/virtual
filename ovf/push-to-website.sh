@@ -14,6 +14,13 @@ cecho()
     echo -e "${COL}$@\033[0m"
 }
 
+if [ -z "$1" ]; then
+    echo "You must pass a filename containing the output of, e.g.:"
+    echo "vagrant -machine-readable build fenics.json | tee packer-output.txt"
+    echo "to this script."
+    exit 1
+fi
+
 if [ $1 == "-h" ] || [ $1 == "--help" ]; then
     echo "This helper script will upload the created packer OVA artifact to the FEniCS website"
     echo "and make a symlink from fenics-latest.ova to the uploaded file."
@@ -22,13 +29,6 @@ if [ $1 == "-h" ] || [ $1 == "--help" ]; then
     echo "  packer -machine-readable build fenics.json | tee packer-output.txt"
     echo "  ./push-to-website.sh packer-output.txt"
     exit 0
-fi
-
-if [ -z "$1" ]; then
-    echo "You must pass a filename containing the output of, e.g.:" 
-    echo "vagrant -machine-readable build fenics.json | tee packer-output.txt"
-    echo "to this script." 
-    exit 1    
 fi
 
 if [ ! -f "$1" ]; then
