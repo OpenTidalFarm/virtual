@@ -54,7 +54,7 @@ else
 fi
 
 echo "Creating symlink from pub/virtual/fenics-latest.ova to pub/virtual/$artifact_file ..."
-ssh fenics-web@fenicsproject.org "cd pub/virtual/; ln -sf $artifact_file fenics-latest.ova"
+ssh fenics-web@fenicsproject.org "cd pub/virtual/; ln -sf $artifact_file fenics-latest.ova; chmod a+r *"
 if [ $? -eq 0 ]; then
     cecho $GOOD "Created symlink."
 else
