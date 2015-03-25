@@ -45,7 +45,7 @@ artifact_file=${artifact##*/}
 cecho $GOOD "Found artifact at $artifact"
 
 echo "Uploading artifact to http://fenicsproject.org/pub/virtual/$artifact_file ..."
-if [ `scp $artifact fenic-web@fenicsproject.org:pub/virtual/` ]; then
+if [ `scp $artifact fenics-web@fenicsproject.org:pub/virtual/` ]; then
     cecho $GOOD "Successfully uploaded artifact."
 else
     cecho $BAD "Failed to upload artifact."
