@@ -1,5 +1,5 @@
 #!/bin/bash
-# This script will upload the OVA created by packer to the FEnics website
+# This script will upload the OVA created by Packer to the FEniCS website
 # and make a symlink from fenics-latest.ova to the uploaded file.
 # Author: Jack S. Hale
 
@@ -16,7 +16,7 @@ cecho()
 
 if [ -z "$1" ]; then
     echo "You must pass a filename containing the output of, e.g.:"
-    echo "vagrant -machine-readable build fenics.json | tee packer-output.txt"
+    echo "packer -machine-readable build fenics.json | tee packer-output.txt"
     echo "to this script."
     exit 1
 fi
@@ -45,7 +45,8 @@ artifact_file=${artifact##*/}
 cecho $GOOD "Found artifact at $artifact"
 
 echo "Uploading artifact to http://fenicsproject.org/pub/virtual/$artifact_file ..."
-if [ `scp $artifact fenics-web@fenicsproject.org:pub/virtual/` ]; then
+scp $artifact fenics-web@fenicsproject.org:pub/virtual/
+if [ $? -eq 0 ]; then
     cecho $GOOD "Successfully uploaded artifact."
 else
     cecho $BAD "Failed to upload artifact."
@@ -53,7 +54,8 @@ else
 fi
 
 echo "Creating symlink from pub/virtual/fenics-latest.ova to pub/virtual/$artifact_file ..."
-if [ `ssh fenics-web@fenicsproject.org "cd pub/virtual/; ln -sf $artifact_file fenics-latest.ova"` ]; then
+ssh fenics-web@fenicsproject.org "cd pub/virtual/; ln -sf $artifact_file fenics-latest.ova"
+if [ $? -eq 0 ]; then
     cecho $GOOD "Created symlink."
 else
     cecho $GOOD "Failed to create symlink."
