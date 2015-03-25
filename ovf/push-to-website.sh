@@ -58,7 +58,7 @@ ssh fenics-web@fenicsproject.org "cd pub/virtual/; ln -sf $artifact_file fenics-
 if [ $? -eq 0 ]; then
     cecho $GOOD "Created symlink."
 else
-    cecho $GOOD "Failed to create symlink."
+    cecho $BAD "Failed to create symlink."
     exit 1
 fi
 
