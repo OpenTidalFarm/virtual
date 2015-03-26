@@ -33,7 +33,7 @@ start_gui () {
     if [ "$(uname)" == "Darwin" ]; then
 	if hash socat 2> /dev/null ; then
 	    # I delibrately haven't sunk the output of socat until we understand more about this. 
-	    DISPLAY_ENV=$(boot2docker config | grep HostIP | awk -F \" '{print $2}')
+	    DISPLAY_ENV=$(boot2docker config | grep HostIP | awk -F \" '{print $2}'):0
 	    socat TCP-LISTEN:6000,reuseaddr,fork,bind=$DISPLAY_ENV UNIX-CLIENT:\"$DISPLAY\" &
 	    echo >&2 "Warning: X11 forwarding on Mac OS X is considered experimental!"
 	    echo >&2 "If you have problems run without X11 by passing the -c option."
