@@ -84,7 +84,7 @@ RUN pip install sympy && \
     rm -rf /tmp/*
 
 # Set up user so that we do not run as root
-RUN useradd -m -s /bin/bash -G sudo fenics && \
+RUN useradd -m -s /bin/bash -G sudo fenics docker_env && \
     echo "fenics:docker" | chpasswd && \
     echo "fenics ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
