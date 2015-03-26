@@ -60,7 +60,7 @@ RUN cd /tmp && \
     cd slepc-3.5.3 && \
     ./configure --prefix=/usr/local && \
     make && \
-    make install
+    make install && \
     rm -rf /tmp/*
 ENV SLEPC_DIR /usr/local
 ENV PETSC_DIR /usr/local
