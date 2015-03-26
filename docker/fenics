@@ -60,7 +60,7 @@ start_gui () {
            -v $SHAREDDIR:/home/fenics/ \
            -w="/home/fenics" \
            --name=$NAME $IMAGE \
-           xterm 
+           sudo -u root /sbin/my_init --quiet -- sudo -u fenics xterm 
     # End xhost sharing
     xhost - >/dev/null 2>&1
 }
@@ -72,12 +72,14 @@ start_cli () {
            -v $SHAREDDIR:/home/fenics/ \
            -w="/home/fenics" \
            --name=$NAME $IMAGE \
-           /bin/bash
+           sudo -u root /sbin/my_init --quiet -- sudo -u fenics /bin/bash 
 }
 
 # parse arguments
 if [ "$1" = "-c" ]; then
     start_cli
+    exit 0
 else
     start_gui
+    exit 0
 fi

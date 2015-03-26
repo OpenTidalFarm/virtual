@@ -88,6 +88,9 @@ RUN useradd -m -s /bin/bash -G sudo,docker_env fenics && \
     echo "fenics:docker" | chpasswd && \
     echo "fenics ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
+# See https://github.com/phusion/baseimage-docker/issues/186
+RUN touch /etc/service/syslog-forwarder/down
+
 ENV HOME /home/fenics
 
 CMD ["/sbin/my_init"]
