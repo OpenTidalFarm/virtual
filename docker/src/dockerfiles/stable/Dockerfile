@@ -18,7 +18,7 @@ RUN apt-get -qq update && \
 
 
 # Set up user so that we do not run as root
-RUN useradd -m -s /bin/bash -G sudo fenics docker_env && \
+RUN useradd -m -s /bin/bash -G sudo,docker_env fenics docker_env && \
     echo "fenics:docker" | chpasswd && \
     echo "fenics ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
