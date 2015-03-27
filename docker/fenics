@@ -2,7 +2,6 @@
 
 # User settings
 VERSION=stable                  # Valid choices are: stable, dev, git
-NAME=fenics                     # Name inside docker. Can be anything.
 SHAREDDIR=$PWD/shared           # Location of the defaul shared directory
 IMAGE=fenicsproject/$VERSION    # Name of the docker image to use
 
@@ -59,7 +58,7 @@ start_gui () {
            -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
            -v $SHAREDDIR:/home/fenics/ \
            -w="/home/fenics" \
-           --name=$NAME $IMAGE \
+           $IMAGE \
            sudo -u root /sbin/my_init --quiet -- sudo -u fenics xterm 
     # End xhost sharing
     xhost - >/dev/null 2>&1
@@ -71,7 +70,7 @@ start_cli () {
            -u fenics \
            -v $SHAREDDIR:/home/fenics/ \
            -w="/home/fenics" \
-           --name=$NAME $IMAGE \
+           $IMAGE \
            sudo -u root /sbin/my_init --quiet -- sudo -u fenics /bin/bash 
 }
 
