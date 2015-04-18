@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
 # User settings
-VERSION=stable                  # Valid choices are: stable, dev, git
+VERSION=git                  # Valid choices are: stable, dev, git
 SHAREDDIR=$PWD/shared           # Location of the defaul shared directory
 IMAGE=fenicsproject/$VERSION    # Name of the docker image to use
+PERSISTENT=true                # Is the container persistent? true/false
 
 #-------------------------------------------------------------------------#
 
@@ -24,11 +25,21 @@ if [[ ! -d $SHAREDDIR ]]; then
     cp -a ./src/default_shared_$VERSION $SHAREDDIR
 fi
 
-# For dev version, copy a fenics.conf to the shared directory 
+# For dev version, copy a fenics.conf to the shared directory if it is not there
 if [ "$VERSION" == "dev" ]; then
     if [[ ! -f $SHAREDDIR/fenics.conf ]]; then
         cp -a ./src/fenics.conf $SHAREDDIR    
     fi
+fi
+
+# set the container name
+CONTAINERNAME="fenics-docker-$VERSION"
+
+# delete the container after use if not persistent
+if [ "$PERSISTENT" == "true" ]; then
+    RM=""
+else
+    RM="--rm"
 fi
 
 start_gui () {
@@ -59,12 +70,21 @@ start_gui () {
     # Start xhost sharing
     xhost +local: > /dev/null 2>&1
     # Run docker
-    docker run -i -t --rm \
+    if [ "$PERSISTENT" == "true" ]; then
+        if [ -n "$(docker ps -a | grep $CONTAINERNAME)" ]; then
+            # not the first run in the persistent case. just restore
+            docker start $CONTAINERNAME
+            exit 0
+        fi
+    fi
+    # Launch docker container
+    docker run -i -t $RM \
            -e DISPLAY=$DISPLAY_ENV \
            -u fenics \
            -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
            -v $SHAREDDIR:/home/fenics/ \
            -w="/home/fenics" \
+           --name="$CONTAINERNAME" \
            $IMAGE \
            sudo -u root /sbin/my_init --quiet -- sudo -u fenics xterm 
     # End xhost sharing
@@ -72,17 +92,18 @@ start_gui () {
 }
 
 start_cli () {
-    # Run docker
-    docker run -i -t --rm \
+    # Launch docker container    
+    docker run -i -t $RM \
            -u fenics \
            -v $SHAREDDIR:/home/fenics/ \
            -w="/home/fenics" \
+           --name="$CONTAINERNAME" \           
            $IMAGE \
            sudo -u root /sbin/my_init --quiet -- sudo -u fenics /bin/bash 
 }
 
 # parse arguments
-if [ "$1" = "-c" ]; then
+if [ "$1" == "-c" ]; then
     start_cli
     exit 0
 else
