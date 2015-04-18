@@ -1,4 +1,4 @@
-source fenics.conf
+source /opt/fenics.conf
 
 # Show welcome message
 if [ -e "WELCOME" ]

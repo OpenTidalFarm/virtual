@@ -24,6 +24,13 @@ if [[ ! -d $SHAREDDIR ]]; then
     cp -a ./src/default_shared_$VERSION $SHAREDDIR
 fi
 
+# For dev version, copy a fenics.conf to the shared directory 
+if [ "$VERSION" == "dev" ]; then
+    if [[ ! -f $SHAREDDIR/fenics.conf ]]; then
+        cp -a ./src/fenics.conf $SHAREDDIR    
+    fi
+fi
+
 start_gui () {
     # If we are on Mac OS X and using boot2docker we
     # need to use the following workaround from
