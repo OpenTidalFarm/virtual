@@ -5,6 +5,7 @@ VERSION=stable                  # Valid choices are: stable, dev, git
 SHAREDDIR=$PWD/shared           # Location of the defaul shared directory
 IMAGE=fenicsproject/$VERSION    # Name of the docker image to use
 PERSISTENT=false                # Is the container persistent? true/false
+CONTAINERNAME="fenics-$VERSION" # Default name of the container
 
 #-------------------------------------------------------------------------#
 
@@ -31,9 +32,6 @@ if [ "$VERSION" == "dev" ]; then
         cp -a ./src/fenics.conf $SHAREDDIR    
     fi
 fi
-
-# set the container name
-CONTAINERNAME="fenics-docker-$VERSION"
 
 # delete the container after use if not persistent
 if [ "$PERSISTENT" == "true" ]; then
