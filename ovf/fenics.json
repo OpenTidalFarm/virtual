@@ -78,6 +78,7 @@
             "scripts": [
                 "scripts/update-apt.sh",
                 "scripts/fenics.sh",
+                "scripts/dolfin-adjoint.sh",
                 "scripts/gui.sh",
                 "scripts/utils.sh",
                 "scripts/cleanup.sh"
