@@ -1,7 +1,5 @@
 # FEniCS with virtual machines and containers
 
-*NOTE: This repository is currently under rapid development, so things may not work as described!*
-
 This repository contains tools for running FEniCS
 (<http://fenicsproject.org>) in virtual machines and Linux containers.
 
@@ -20,9 +18,9 @@ This repository contains scripts for:
 
 2. Running FEniCS inside a Linux container using Docker
    (<https://www.docker.com/>). The scripts are located in the
-   directory `docker/`. (*under development*).
+   directory `docker/`. 
 
-## Support
+# Support
 
 Please report any issues with Vagrant, Docker or these instructions at
 <fenics-support@fenicsproject.org>. Specific issues can be registered
