@@ -28,12 +28,12 @@
             "format": "ova",
             "guest_additions_mode": "disable",
             "guest_os_type": "Ubuntu_64",
-            "headless": true,
-	    "http_directory": "http",
-            "iso_checksum": "3bfa6eac84d527380d0cc52db9092cde127f161e",
+            "headless": false,
+	        "http_directory": "http",
+            "iso_checksum": "0501c446929f713eb162ae2088d8dc8b6426224a",
             "iso_checksum_type": "sha1",
-            "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04.2-server-amd64.iso",
-            "name": "fenics-1.5.0-{{isotime \"2006-01-02\"}}",
+            "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04.3-server-amd64.iso",
+            "name": "fenics-1.6.0-{{isotime \"2006-01-02\"}}",
             "shutdown_command": "echo 'fenics' | sudo -S shutdown -P now",
             "ssh_password": "fenics",
             "ssh_username": "fenics",
@@ -59,7 +59,7 @@
                     "32"
                 ]
             ],
-            "vm_name": "fenics-1.5.0-{{isotime \"2006-01-02\"}}"
+            "vm_name": "fenics-1.6.0-{{isotime \"2006-01-02\"}}"
         }
     ],
     "provisioners": [
