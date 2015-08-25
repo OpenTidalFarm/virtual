@@ -89,8 +89,7 @@ image as discussed above.
   (<https://launchpad.net/~fenics-packages>).
 - dolfin-adjoint is installed from the libadjoint PPA packages
   (<https://launchpad.net/~libadjoint/>).
-- Various helpful utilities such as gedit, Paraview, vim, and emacs are
-  already installed.
+- Various helpful utilities such as gedit, Paraview, vim, and emacs are installed.
 
 
 ### FEniCS versions
