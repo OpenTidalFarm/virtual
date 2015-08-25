@@ -64,13 +64,56 @@
     ],
     "provisioners": [
         {
-            "destination": "/home/fenics/.xsession",
-            "source": "files/xsession",
+            "destination": "/home/fenics/.background.png",
+            "source": "files/background.png",
             "type": "file"
         },
         {
-            "destination": "/home/fenics/.background.png",
-            "source": "files/background.png",
+            "destination": "/home/fenics/.fenics_logo.png",
+            "source": "files/fenics_logo.png",
+            "type": "file"
+        },
+        {
+            "type": "shell",
+            "inline": "mkdir -p /home/fenics/.config/pcmanfm/lubuntu"
+        },
+        {
+            "destination": "/home/fenics/.config/pcmanfm/lubuntu/desktop-items-0.conf",
+            "source": "files/desktop-items-0.conf",
+            "type": "file"
+        },
+        {
+            "type": "shell",
+            "inline": "mkdir -p /home/fenics/Desktop"
+        },
+        {
+            "destination": "/home/fenics/Desktop/documentation.desktop",
+            "source": "files/Desktop/documentation.desktop",
+            "type": "file"
+        },
+        {
+            "destination": "/home/fenics/Desktop/firefox.desktop",
+            "source": "files/Desktop/firefox.desktop",
+            "type": "file"
+        },
+        {
+            "destination": "/home/fenics/Desktop/gedit.desktop",
+            "source": "files/Desktop/gedit.desktop",
+            "type": "file"
+        },
+        {
+            "destination": "/home/fenics/Desktop/lxterminal.desktop",
+            "source": "files/Desktop/lxterminal.desktop",
+            "type": "file"
+        },
+        {
+            "destination": "/home/fenics/Desktop/paraview.desktop",
+            "source": "files/Desktop/paraview.desktop",
+            "type": "file"
+        },
+        {
+            "destination": "/home/fenics/Desktop/pcmanfm.desktop",
+            "source": "files/Desktop/pcmanfm.desktop",
             "type": "file"
         },
         {
