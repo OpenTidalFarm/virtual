@@ -8,12 +8,13 @@ at <http://fenicsproject.org/pub/virtual/>.
 ## The FEniCS virtual machine image
 
 The FEniCS virtual machine image is built on a recent Ubuntu release,
-with the Fluxbox window manager. We use Fluxbox to minimise the size
-of the image.
+with the LXDE window manager. LXDE provides a good compromise between
+ease of use and low system requirements.
 
 The image is built using Packer (<https://packer.io/>). Packer
 downloads the Ubuntu ISO, builds a virtual machine, provisions the
-machine to the FEniCS libraries and creates an OVF image.
+machine, installs the FEniCS Project and dolfin-adjoint,
+and creates an OVF image, without any user intervention.
 
 
 ## Building a FEniCS virtual machine image
@@ -21,11 +22,16 @@ machine to the FEniCS libraries and creates an OVF image.
 ### Requirements
 
 - Packer (<https://packer.io/>)
-- VirtualBox (https://www.virtualbox.org/)
+- VirtualBox (<https://www.virtualbox.org/>)
 
 VirtualBox is available as a Debian/Ubuntu package (`sudo apt-get
 install virtualbox`). Packer binaries are available from
 <https://packer.io/>.
+
+
+### User name and password
+
+The user name and password for the virtual machine are both 'fenics'.
 
 
 ### Building the image
@@ -69,10 +75,13 @@ image as discussed above.
 
 - Packer is used to create and provision the image.
 - The images are built from an Ubuntu 14.04 Server ISO directly from Canonical.
-- To minimize the size of the image, we use the lightweight Fluxbox
-  window manager.
-- FEniCS is installed from the FEniCS PPA packages
+- For maximum user friendliness we use the LXDE window manager.
+- FEniCS is installed from the FEniCS PPA packages 
   (<https://launchpad.net/~fenics-packages>).
+- dolfin-adjoint is installed from the libadjoint PPA package
+  (<https://launchpad.net/~libadjoint/+archive/ubuntu/ppa>).
+- Various helpful utilities such as gedit, Paraview, vim, and emacs are
+  already installed.
 
 
 ### FEniCS versions
@@ -80,10 +89,8 @@ image as discussed above.
 FEniCS is installed from the FEniCS PPA
 (<https://launchpad.net/~fenics-packages>).
 
-
-### User name and password
-
-The user name and password for the virtual machine are both 'fenics'.
+dolfin-adjoint is installed from the libadjoint PPA
+(<https://launchpad.net/~libadjoint/+archive/ubuntu/ppa>).
 
 
 ### Provisioning
