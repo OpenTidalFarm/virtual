@@ -1,8 +1,36 @@
 # Open Visualization Format images for FEniCS
 
 These scripts create an Open Visualization Format (OVF) image for
-running FEniCS and dolfin-adjhoint inside a virtual machine. 
-If you are just looking for a recent pre-built image go to <http://fenicsproject.org/pub/virtual/>.
+running FEniCS and dolfin-adjoint inside a virtual machine.
+If you are just looking for a recent pre-built image go to (<http://fenicsproject.org/pub/virtual/>).
+
+
+## End users: Running a FEniCS virtual machine image
+
+### Running
+
+1. Install Virtualbox for your platform from <(http://virtualbox.org>).
+2. Download the latest pre-built image from (<http://fenicsproject.org/pub/virtual/>).
+3. Import the pre-built image by going to File > Import Appliance 
+   then selecting the OVA file you just downloaded. Click Import. 
+   Wait for the import to finish.
+4. Double click on the newly created image to start.
+
+### User name and password
+
+The user name and password for the virtual machine are both 'fenics'.
+
+
+## Advanced users: Building your own FEniCS virtual machine image
+
+### Requirements
+
+- Packer (<https://packer.io/>)
+- VirtualBox (<https://www.virtualbox.org/>)
+
+VirtualBox is available as a Debian/Ubuntu package (`sudo apt-get
+install virtualbox`). Packer binaries are available from
+<https://packer.io/>.
 
 ## The FEniCS virtual machine image
 
@@ -15,25 +43,7 @@ downloads the Ubuntu ISO, builds a virtual machine, provisions the
 machine, installs the FEniCS Project and dolfin-adjoint,
 and creates an OVF image, without any user intervention.
 
-
-## Building a FEniCS virtual machine image
-
-### Requirements
-
-- Packer (<https://packer.io/>)
-- VirtualBox (<https://www.virtualbox.org/>)
-
-VirtualBox is available as a Debian/Ubuntu package (`sudo apt-get
-install virtualbox`). Packer binaries are available from
-<https://packer.io/>.
-
-
-### User name and password
-
-The user name and password for the virtual machine are both 'fenics'.
-
-
-### Building the image
+### Building
 
 The image is built by the command
 
