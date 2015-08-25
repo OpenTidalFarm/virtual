@@ -1,9 +1,8 @@
 # Open Visualization Format images for FEniCS
 
 These scripts create an Open Visualization Format (OVF) image for
-running FEniCS inside a virtual machine. Recent images are available
-at <http://fenicsproject.org/pub/virtual/>.
-
+running FEniCS and dolfin-adjhoint inside a virtual machine. 
+If you are just looking for a recent pre-built image go to <http://fenicsproject.org/pub/virtual/>.
 
 ## The FEniCS virtual machine image
 
@@ -79,7 +78,7 @@ image as discussed above.
 - FEniCS is installed from the FEniCS PPA packages 
   (<https://launchpad.net/~fenics-packages>).
 - dolfin-adjoint is installed from the libadjoint PPA package
-  (<https://launchpad.net/~libadjoint/+archive/ubuntu/ppa>).
+  (<https://launchpad.net/~libadjoint/>).
 - Various helpful utilities such as gedit, Paraview, vim, and emacs are
   already installed.
 
@@ -90,7 +89,7 @@ FEniCS is installed from the FEniCS PPA
 (<https://launchpad.net/~fenics-packages>).
 
 dolfin-adjoint is installed from the libadjoint PPA
-(<https://launchpad.net/~libadjoint/+archive/ubuntu/ppa>).
+(<https://launchpad.net/~libadjoint/>).
 
 
 ### Provisioning
