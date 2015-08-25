@@ -116,7 +116,8 @@ called in the order:
 
 1. `update-apt.sh`       (run `apt-get update`)
 2. `fenics.sh`           (add the FEniCS PPA and install `fenics` package)
-3. `gui.sh`              (add GUI packages)
-4. `utils.sh`            (add miscellaneous useful packages)
-5. `cleanup.sh`          (clean `apt` cache and temp files)
-6. `dolfin-examples.sh`  (copy DOLFIN examples into user directory)
+3. `dolfin-adjoint.sh`   (add the libadjoint PPA and install `dolfin-adjoint` package)
+4. `gui.sh`              (add GUI packages)
+5. `utils.sh`            (add miscellaneous useful packages)
+6. `cleanup.sh`          (clean `apt` cache and temp files)
+7. `dolfin-examples.sh`  (copy DOLFIN examples into user directory)
