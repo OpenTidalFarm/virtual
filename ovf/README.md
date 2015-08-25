@@ -2,14 +2,14 @@
 
 These scripts create an Open Visualization Format (OVF) image for
 running FEniCS and dolfin-adjoint inside a virtual machine.
-If you are just looking for a recent pre-built image go to (<http://fenicsproject.org/pub/virtual/>).
 
+Pre-built images are at (<http://fenicsproject.org/pub/virtual/>).
 
 ## End users: Running a FEniCS virtual machine image
 
 ### Running
 
-1. Install Virtualbox for your platform from <(http://virtualbox.org>).
+1. Install Virtualbox for your platform from (<http://virtualbox.org>).
 2. Download the latest pre-built image from (<http://fenicsproject.org/pub/virtual/>).
 3. Import the pre-built image by going to File > Import Appliance 
    then selecting the OVA file you just downloaded. Click Import. 
@@ -87,7 +87,7 @@ image as discussed above.
 - For maximum user friendliness we use the LXDE window manager.
 - FEniCS is installed from the FEniCS PPA packages 
   (<https://launchpad.net/~fenics-packages>).
-- dolfin-adjoint is installed from the libadjoint PPA package
+- dolfin-adjoint is installed from the libadjoint PPA packages
   (<https://launchpad.net/~libadjoint/>).
 - Various helpful utilities such as gedit, Paraview, vim, and emacs are
   already installed.
