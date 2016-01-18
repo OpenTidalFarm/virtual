@@ -1,2 +1,2 @@
 #!/bin/bash
-apt-get -y install emacs firefox gedit git ipython paraview vim
+apt-get -y install emacs firefox gedit git ipython paraview vim paraview
